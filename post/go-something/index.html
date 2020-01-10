@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>go语言的边边角角 - Keep Learning, Keep Coding!</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="luomsis" /><meta name="description" content="1. go的代理设置 为了更好地管理模块，在 Go1.13 中 Go modules 中可以通过设定 GOPROXY 来达到目的，其默认值为 https://proxy.golang.org。但这个" /><meta name="keywords" content="Hugo, github, c&#43;&#43;, go" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.59.1 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/go-something/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="go语言的边边角角" />
+<meta property="og:description" content="1. go的代理设置 为了更好地管理模块，在 Go1.13 中 Go modules 中可以通过设定 GOPROXY 来达到目的，其默认值为 https://proxy.golang.org。但这个" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/go-something/" />
+<meta property="article:published_time" content="2020-01-10T23:21:46+08:00" />
+<meta property="article:modified_time" content="2020-01-10T23:21:46+08:00" />
+<meta itemprop="name" content="go语言的边边角角">
+<meta itemprop="description" content="1. go的代理设置 为了更好地管理模块，在 Go1.13 中 Go modules 中可以通过设定 GOPROXY 来达到目的，其默认值为 https://proxy.golang.org。但这个">
+
+
+<meta itemprop="datePublished" content="2020-01-10T23:21:46&#43;08:00" />
+<meta itemprop="dateModified" content="2020-01-10T23:21:46&#43;08:00" />
+<meta itemprop="wordCount" content="1288">
+
+
+
+<meta itemprop="keywords" content="go," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="go语言的边边角角"/>
+<meta name="twitter:description" content="1. go的代理设置 为了更好地管理模块，在 Go1.13 中 Go modules 中可以通过设定 GOPROXY 来达到目的，其默认值为 https://proxy.golang.org。但这个"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Even</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于我</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Even</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于我</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">go语言的边边角角</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-01-10 </span>
+        <div class="post-category">
+            <a href="/categories/%E7%BC%96%E7%A8%8B/"> 编程 </a>
+            </div>
+          <span class="more-meta"> 约 1288 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#1-go的代理设置">1. go的代理设置</a></li>
+<li><a href="#2-gopath的意义">2.GOPATH的意义</a></li>
+<li><a href="#3-go-get命令执行过程">3. go get命令执行过程</a></li>
+<li><a href="#4-关于go-build-构建">4. 关于go build（构建）</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      
+
+<h3 id="1-go的代理设置">1. go的代理设置</h3>
+
+<p>为了更好地管理模块，在 Go1.13 中 Go modules 中可以通过设定 GOPROXY 来达到目的，其默认值为 <code>https://proxy.golang.org</code>。但这个网址在中国大陆无法访问，云服务提供商七牛云专门为中国 Go 语言开发者提供了一个 Go 模块代理：goproxy.cn。</p>
+
+<p>使用命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">go env -w GOPROXY=https://goproxy.cn,direct</pre></td></tr></table>
+</div>
+</div>
+<h3 id="2-gopath的意义">2.GOPATH的意义</h3>
+
+<p>你可以把 GOPATH 简单理解成 Go 语言的工作目录，它的值是一个目录的路径，也可以是多个目录路径，每个目录都代表 Go 语言的一个工作区（workspace）。</p>
+
+<p>GOPATH下有三个目录：bin，pkg，src。</p>
+
+<p>bin：此目录下存放go生成的可执行文件；</p>
+
+<p>pkg：此目录下存放下载第三方依赖包；</p>
+
+<p>src：我们自己的项目所在的目录；</p>
+
+<p><strong>一个代码包的导入路径实际上就是从 src 子目录，到该包的实际存储位置的相对路径。</strong></p>
+
+<h3 id="3-go-get命令执行过程">3. go get命令执行过程</h3>
+
+<p>go get首先会下载相应版本（不指定就下载最新）的代码包，放在pkg/目录下，然后执行go install（安装）命令；</p>
+
+<p>go install命令的对象如果是命令源码文件，那么结果文件会被搬运到它所在工作区的 bin 目录中，或者环境变量<code>GOBIN</code>指向的目录中。</p>
+
+<p>go install会先执行构建，然后还会进行链接操作，并且把结果文件搬运到指定目录。进一步说，如果go install的是库源码文件，那么结果文件会被搬运到它所在工作区的 pkg 目录下的某个子目录中。</p>
+
+<p><strong>如果存在多个工作区，那么安装到环境变量<code>GOPATH</code>包含的第 1 工作区的相应目录中。</strong></p>
+
+<p>如果go install的是命令源码文件，那么结果文件会被搬运到它所在工作区的 bin 目录中，或者环境变量<code>GOBIN</code>指向的目录中。</p>
+
+<p><strong>如果存在环境变量<code>GOBIN</code>，那么仅包含命令源码文件的代码包会被安装到<code>GOBIN</code>指向的那个目录。</strong></p>
+
+<p>go get的常见选项：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">-u：下载并安装代码包，不论工作区中是否已存在它们。
+-d：只下载代码包，不安装代码包。
+-fix：在下载代码包后先运行一个用于根据当前 Go 语言版本修正代码的工具，然后再安装代码包。
+-t：同时下载测试所需的代码包。
+-insecure：允许通过非安全的网络协议下载和安装代码包。HTTP 就是这样的协议。</pre></td></tr></table>
+</div>
+</div>
+<h3 id="4-关于go-build-构建">4. 关于go build（构建）</h3>
+
+<p>如果构建的是库源码文件，那么操作的结果文件只会存在于临时目录中。这里的构建的主要意义在于检查和验证。</p>
+
+<p>如果构建的是命令源码文件，那么操作的结果文件会被搬运到源码文件所在的目录中。</p>
+
+<p>在运行<code>go build</code>命令的时候，默认不会编译目标代码包所依赖的那些代码包。当然，如果被依赖的代码包的归档文件不存在，或者源码文件有了变化，那它还是会被编译。</p>
+
+<p>如果要强制编译它们，可以在执行命令的时候加入标记<code>-a</code>。此时，不但目标代码包总是会被编译，它依赖的代码包也总会被编译，即使依赖的是标准库中的代码包也是如此。</p>
+
+<p>另外，如果不但要编译依赖的代码包，还要安装它们的归档文件，那么可以加入标记<code>-i</code>。</p>
+
+<p>go build常见选项：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><span class="lnt">1
+</span><span class="lnt">2
+</span></pre></td>
+<td class="lntd">
+<pre class="chroma">-x:可以看到go build命令具体都执行了哪些操作。另外也可以加入标记-n，这样可以只查看具体操作而不执行它们。
+-v:可以看到go build命令编译的代码包的名称。它在与-a标记搭配使用时很有用。</pre></td></tr></table>
+</div>
+</div>
+<p>未完待续。。。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">luomsis</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-01-10
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/go/">go</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/my-first-blog/">
+            <span class="next-text nav-default">扬帆，起航！</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2019 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">luomsis</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

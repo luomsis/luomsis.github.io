@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Keep Learning, Keep Coding!</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Keep Learning, Keep Coding!</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 10 Jan 2020 23:21:46 +0800</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Sun, 20 Aug 2017 21:38:52 +0800</pubDate>
+      
+      <guid>http://localhost:1313/about/</guid>
+      <description>Hugo is a static site engine written in Go.
+It makes use of a variety of open source projects including:
+ Cobra Viper J Walter Weatherman Cast  Learn more and contribute on GitHub.</description>
+    </item>
+    
+    <item>
+      <title>go语言的边边角角</title>
+      <link>http://localhost:1313/post/go-something/</link>
+      <pubDate>Fri, 10 Jan 2020 23:21:46 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/go-something/</guid>
+      <description>1. go的代理设置 为了更好地管理模块，在 Go1.13 中 Go modules 中可以通过设定 GOPROXY 来达到目的，其默认值为 https://proxy.golang.org。但这个</description>
+    </item>
+    
+    <item>
+      <title>扬帆，起航！</title>
+      <link>http://localhost:1313/post/my-first-blog/</link>
+      <pubDate>Tue, 26 Nov 2019 21:43:34 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/my-first-blog/</guid>
+      <description>写博客只是为了提醒自己保持学习的心态!!!</description>
+    </item>
+    
+  </channel>
+</rss>
